@@ -31,11 +31,16 @@ node {
         print('test read value is ' + mydata.type);
     }
     stage('test write ymal'){
-        def amap = ['something': 'my datas',
-                    'size': 3,
-                    'isEmpty': false]
-
+        def amap = ['something': 'my datas','size': 3, 'isEmpty': false]
         writeYaml file: 'datas.yaml', data: amap
+    }
+    stage('test yaml2'){
+        mydata = readYaml file: "secrettest.yml"
+        //modify
+        mydata.info = "b" ;
+        mydata.data.TESTKEY2 = "key2" ;
+        mydata.data.TESTKEY3 = "key3" ;
+        writeYaml file: 'newtest.yaml', data: mydata ;
     }
     
 

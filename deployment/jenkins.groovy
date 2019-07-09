@@ -22,6 +22,7 @@ node {
 
         // vault.checkOutSecretTemplate();
         vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
+        vault.writeSecretYaml();
     }
     stage('Checkout test'){
         print('test checkout');

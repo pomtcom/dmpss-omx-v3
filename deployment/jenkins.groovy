@@ -17,24 +17,25 @@ node {
     stage('Test Get Secret from Vault'){
         def vault = new Vault(this);
         vault.init();
-        def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
-        print('mysecret is ' + mysecret) ;
+        // def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
+        // print('mysecret is ' + mysecret) ;
 
         // vault.checkOutSecretTemplate();
+        vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
     }
     stage('Checkout test'){
         print('test checkout');
 
-        checkout([
-            $class: 'GitSCM', 
-            branches: [[name: '*/master']], 
-            doGenerateSubmoduleConfigurations: false, 
-            extensions: [], 
-            submoduleCfg: [], 
-            userRemoteConfigs: [[url: 'https://github.com/pomtcom/dmpss-omx-v3.git']]])
-        script.echo('checkout SCM is completed (version2)');
+        // checkout([
+        //     $class: 'GitSCM', 
+        //     branches: [[name: '*/master']], 
+        //     doGenerateSubmoduleConfigurations: false, 
+        //     extensions: [], 
+        //     submoduleCfg: [], 
+        //     userRemoteConfigs: [[url: 'https://github.com/pomtcom/dmpss-omx-v3.git']]])
+        // print('checkout SCM is completed (version2)');
     
-        print('checkout is completed');
+        // print('checkout is completed');
     }
     // stage('Read .yaml test'){
     //     mydata = readYaml file: "secrettest.yml"

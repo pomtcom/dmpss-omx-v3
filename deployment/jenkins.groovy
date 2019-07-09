@@ -20,15 +20,25 @@ node {
         def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
         print('mysecret is ' + mysecret) ;
 
-        vault.checkOutSecretTemplate();
+        // vault.checkOutSecretTemplate();
 
 
     }
-    // stage('Checkout test'){
-    //     print('test checkout');
-    //     checkout scm ;
-    //     print('checkout is completed');
-    // }
+    stage('Checkout test'){
+        print('test checkout');
+        // checkout scm ;
+        checkout([
+            $class: 'GitSCM',
+            branches: 'master',
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [],
+            userRemoteConfigs: 'https://github.com/pomtcom/dmpss-omx-v3.git'
+        ])
+
+
+
+        print('checkout is completed');
+    }
     // stage('Read .yaml test'){
     //     mydata = readYaml file: "secrettest.yml"
 

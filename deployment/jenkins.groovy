@@ -35,7 +35,7 @@ node {
         //     userRemoteConfigs: 'https://github.com/pomtcom/dmpss-omx-v3.git'
         // ])
 
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'myCredentials', url: 'https://github.com/pomtcom/dmpss-omx-v3.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/pomtcom/dmpss-omx-v3.git']]])
 
 
         print('checkout is completed');

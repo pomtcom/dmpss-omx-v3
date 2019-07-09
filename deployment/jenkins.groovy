@@ -22,6 +22,8 @@ node {
     }
     stage('Checkout test'){
         print('test checkout');
+        checkout scm ;
+        print('checkout is completed');
     }
     
 

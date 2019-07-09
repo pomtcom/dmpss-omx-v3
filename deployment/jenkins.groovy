@@ -25,6 +25,11 @@ node {
         checkout scm ;
         print('checkout is completed');
     }
+    stage('Read .yaml test'){
+        mydata = readYaml file: "secrettest.yml"
+
+        print('test read value is ' + mydata.type);
+    }
     
 
 }

@@ -30,6 +30,13 @@ node {
 
         print('test read value is ' + mydata.type);
     }
+    stage('test write ymal'){
+        def amap = ['something': 'my datas',
+                    'size': 3,
+                    'isEmpty': false]
+
+        writeYaml file: 'datas.yaml', data: amap
+    }
     
 
 }

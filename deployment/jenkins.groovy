@@ -17,11 +17,11 @@ node {
     stage('Test Get Secret from Vault'){
         def vault = new Vault(this);
         vault.init();
-        // def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
+        def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
         // print('mysecret is ' + mysecret) ;
 
         // vault.checkOutSecretTemplate();
-        vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
+        // vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
         vault.writeSecretYaml();
     }
     stage('Checkout test'){

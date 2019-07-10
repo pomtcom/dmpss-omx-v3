@@ -24,8 +24,15 @@ node {
         // vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
         vault.writeSecretYaml();
     }
-    stage('Checkout test'){
-        print('test checkout');
+    stage('OC test'){
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'OC_CREDENTIAL', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+            // sh "oc login --username ${env.USERNAME} --password ${env.PASSWORD} ${env.OC_URL_NonProd} --insecure-skip-tls-verify"
+            print('username is ' + USERNAME);
+            print('password is ' + PASSWORD);
+        }
+    }
+    // stage('Checkout test'){
+    //     print('test checkout');
 
         // checkout([
         //     $class: 'GitSCM', 
@@ -37,7 +44,7 @@ node {
         // print('checkout SCM is completed (version2)');
     
         // print('checkout is completed');
-    }
+    // }
     // stage('Read .yaml test'){
     //     mydata = readYaml file: "secrettest.yml"
 

@@ -33,10 +33,11 @@ node {
         }
     }
     stage('OC write secret'){
-        sh "oc create -f ${vault.SECRET_TEMPLATE_YAML}"
+        print('SECRET_TEMPLATE_YAML is ' + vault.SECRET_TEMPLATE_YAML);
+        sh "oc create -f " + vault.SECRET_TEMPLATE_YAML;
     }
     stage('OC set secret'){
-        
+
     }
     stage('OC new application'){
 

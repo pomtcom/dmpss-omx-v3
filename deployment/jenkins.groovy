@@ -27,8 +27,14 @@ node {
     stage('OC test'){
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'OC_CREDENTIAL', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
             // sh "oc login --username ${env.USERNAME} --password ${env.PASSWORD} ${env.OC_URL_NonProd} --insecure-skip-tls-verify"
-            print('username is ' + USERNAME);
-            print('password is ' + PASSWORD);
+            print('testing login');
+            sh "oc login --username ${USERNAME} --password ${PASSWORD} https://ose2-np.dmp.true.th:8443 --insecure-skip-tls-verify"
+            print('login is completed');
+
+            print('test listing project');
+            sh "oc project get"
+            print('test listing project is completed');
+
         }
     }
     // stage('Checkout test'){

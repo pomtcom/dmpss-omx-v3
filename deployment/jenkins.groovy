@@ -37,7 +37,16 @@ node {
     }
     stage('OC write secret'){
         // print('SECRET_TEMPLATE_YAML is ' + vault.secretFileName);
-        sh "oc create -f ${vault.secretFileName}" ;
+        
+        try {
+            sh "oc create -f ${vault.secretFileName}" ;
+        } catch (Exception e) {
+            print('secret may already existed, try to replace secret instead') ;
+            sh "oc replace -f ${vault.secretFileName}" ;
+        }
+
+
+
     }
     stage('OC new application'){
         sh "oc new-app --docker-image= ${docker_image} --name=${microservice_name}"

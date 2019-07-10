@@ -4,7 +4,7 @@
 @Library('vault-library') import com.truedigital.Vault
 
 node {
-     
+     def vault = new Vault(this);
     // stage('Test credential'){
     //     withCredentials([string(credentialsId: 'VaultToken', variable: 'myassignsecret')]) {
     //           echo "My password is '${myassignsecret}'!"
@@ -15,7 +15,7 @@ node {
     // }
 
     stage('Test Get Secret from Vault'){
-        def vault = new Vault(this);
+        
         vault.init();
         def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
         // print('mysecret is ' + mysecret) ;

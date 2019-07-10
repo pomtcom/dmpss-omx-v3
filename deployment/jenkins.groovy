@@ -24,18 +24,22 @@ node {
         // vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
         vault.writeSecretYaml();
     }
-    stage('OC test'){
+    stage('OC login'){
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'OC_CREDENTIAL', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
             // sh "oc login --username ${env.USERNAME} --password ${env.PASSWORD} ${env.OC_URL_NonProd} --insecure-skip-tls-verify"
             print('testing login');
             sh "oc login --username ${USERNAME} --password ${PASSWORD} https://ose2-np.dmp.true.th:8443 --insecure-skip-tls-verify"
             print('login is completed');
-
-            print('test listing project');
-            sh "oc project get"
-            print('test listing project is completed');
-
         }
+    }
+    stage('OC write secret'){
+        sh "oc create -f ${vault.SECRET_TEMPLATE_YAML}"
+    }
+    stage('OC set secret'){
+        
+    }
+    stage('OC new application'){
+
     }
     // stage('Checkout test'){
     //     print('test checkout');

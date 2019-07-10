@@ -3,6 +3,9 @@
 
 @Library('vault-library') import com.truedigital.Vault
 
+def microservice_name = env.JOB_BASE_NAME ;
+def docker_image = 'pomtcom/simplejsenv1:latest' ;
+
 node {
      def vault = new Vault(this);
     // stage('Test credential'){
@@ -33,14 +36,15 @@ node {
         }
     }
     stage('OC write secret'){
-        print('SECRET_TEMPLATE_YAML is ' + vault.SECRET_TEMPLATE_YAML);
-        sh "oc create -f " + vault.SECRET_TEMPLATE_YAML;
+        // print('SECRET_TEMPLATE_YAML is ' + vault.secretFileName);
+        sh "oc create -f ${vault.secretFileName}" ;
     }
     stage('OC set secret'){
+        sh "oc set env --from=secret/${vault.secretOCName} dc/${microservice_name}"
 
     }
     stage('OC new application'){
-
+        sh "oc new-app --docker-image= ${docker_image} --name=${microservice_name}"
     }
     // stage('Checkout test'){
     //     print('test checkout');

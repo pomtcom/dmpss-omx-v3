@@ -46,17 +46,17 @@ node {
             sh "oc replace -f ${vault.secretFileName}" ;
         }
     }
-    // stage('OC new application'){
-    //     try{
-    //         sh "oc new-app --docker-image=${docker_image} --name=${microservice_name}"
-    //     }catch (Exception e){
-    //         print('application already created ');
-    //         print('oc message : ' + e);
-    //     }
-    // }
-    // stage('OC set secret'){
-    //     sh "oc set env --from=secret/${vault.secretOCName} dc/${microservice_name}"
-    // }
+    stage('OC new application'){
+        try{
+            sh "oc new-app --docker-image=${docker_image} --name=${microservice_name}"
+        }catch (Exception e){
+            print('application already created ');
+            print('oc message : ' + e);
+        }
+    }
+    stage('OC set secret'){
+        sh "oc set env --from=secret/${vault.secretOCName} dc/${microservice_name}"
+    }
 
     // stage('Checkout test'){
     //     print('test checkout');

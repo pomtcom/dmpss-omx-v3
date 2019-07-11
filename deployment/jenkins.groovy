@@ -20,7 +20,8 @@ node {
     stage('Test Get Secret from Vault'){
         
         vault.init();
-        def mysecret = vault.getSecret('mysql', 'mysql-omx-instance1');
+        vault.getSecret('mysql', 'MYSQL_OMX_INSTANCE1');
+        vault.getSecret('mysql', 'MYSQL_OMX_INSTANCE2');
         // print('mysecret is ' + mysecret) ;
 
         // vault.checkOutSecretTemplate();
@@ -41,19 +42,20 @@ node {
         try {
             sh "oc create -f ${vault.secretFileName}" ;
         } catch (Exception e) {
-            print('secret may already existed, try to replace secret instead') ;
+            print('secret may already existed, try to replace secret instead with openshift message ' + e) ;
             sh "oc replace -f ${vault.secretFileName}" ;
         }
-
-
-
     }
     stage('OC new application'){
-        sh "oc new-app --docker-image= ${docker_image} --name=${microservice_name}"
+        try{
+            sh "oc new-app --docker-image= ${docker_image} --name=${microservice_name}"
+        }catch (Exception e){
+            print('application already created ');
+            print('oc message : ' + e);
+        }
     }
     stage('OC set secret'){
         sh "oc set env --from=secret/${vault.secretOCName} dc/${microservice_name}"
-
     }
 
     // stage('Checkout test'){

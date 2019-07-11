@@ -17,15 +17,11 @@ node {
     //     }
     // }
 
-    stage('Test Get Secret from Vault'){
+    stage('Get Secret from Vault'){
         
         vault.init();
         vault.getSecret('mysql', 'MYSQL_OMX_INSTANCE1');
         vault.getSecret('mysql', 'MYSQL_OMX_INSTANCE2');
-        // print('mysecret is ' + mysecret) ;
-
-        // vault.checkOutSecretTemplate();
-        // vault.putSecretTest('KEYZXZXXZX','cGFzc3dvcmQ');
         vault.writeSecretYaml();
     }
     stage('OC login'){
@@ -46,7 +42,7 @@ node {
             sh "oc replace -f ${vault.secretFileName}" ;
         }
     }
-    stage('OC new application'){
+    stage('OC check new application'){
         try{
             sh "oc new-app --docker-image=${docker_image} --name=${microservice_name}"
         }catch (Exception e){

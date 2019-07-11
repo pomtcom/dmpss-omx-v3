@@ -57,6 +57,9 @@ node {
     stage('OC set secret'){
         sh "oc set env --from=secret/${vault.secretOCName} dc/${microservice_name}"
     }
+    stage('OC start deployment'){
+        sh "oc deploy --latest dc/${microservice_name}"
+    }
 
     // stage('Checkout test'){
     //     print('test checkout');
